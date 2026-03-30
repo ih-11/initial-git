@@ -1,0 +1,6 @@
+# ~/.profile: executed by login shells
+
+# Include .bashrc if it exists
+if [ -n "$BASH_VERSION" ] && [ -f "$HOME/.bashrc" ]; then
+    . "$HOME/.bashrc"
+fi
