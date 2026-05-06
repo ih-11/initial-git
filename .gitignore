@@ -16,3 +16,20 @@ _site/
 # counterproductive to check this file into the repository.
 # Details at https://github.com/github/pages-gem/issues/768
 Gemfile.lock
+
+# environments / temp
+.env/
+__pycache__/
+*.pyc
+
+# large binary files
+*.sif
+*.sif.md5
+*.sif.sha256
+
+# private libraries (in case you ever copy them here)
+kmaps-tools-dev-*/
+seq-opt-tools-dev-*/
+sy-lib-*/
+sy-scripts-*/
+
