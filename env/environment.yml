@@ -1,0 +1,152 @@
+name: ibnu
+
+channels:
+  - conda-forge          # community-maintained packages for Python/R and tooling
+  - bioconda             # bioinformatics packages for NGS, RNA-seq, and annotation
+  - nodefaults           # disable Anaconda defaults channel for licensing clarity
+
+dependencies:
+  - python=3.11          # modern Python runtime for analysis and tooling
+  - pip                  # fallback package manager for Python-only wheels
+  - setuptools
+  - wheel
+
+  # ---------------------------------------------------------------------------
+  # Core system libraries and utilities (used by bioinformatics tools)
+  # ---------------------------------------------------------------------------
+
+  - sqlite           # lightweight relational database engine
+  - graphviz         # graph rendering engine for network and pathway visualization
+  - git              # version control system for code repositories
+
+  # ---------------------------------------------------------------------------
+  # Core bioinformatics command-line tools and libraries
+  # ---------------------------------------------------------------------------
+
+  - seqkit           # comprehensive and ultra-fast FASTA/FASTQ toolkit
+  - seqtk            # lightweight FASTA/FASTQ manipulation and filtering
+  - samtools         # manipulate and index SAM/BAM/CRAM alignment files
+  - bedtools         # genomic interval operations (intersect, merge, coverage)
+  - mafft            # multiple sequence alignment for DNA, RNA, and protein sequences
+  - viennarna        # RNA secondary structure prediction suite with Python API bindings
+  - openblas         # linear algebra backend required by ViennaRNA Python bindings
+
+  # ---------------------------------------------------------------------------
+  # Python
+  # ---------------------------------------------------------------------------
+
+  # Python: core scientific stack
+  - numpy
+  - scipy
+  - pandas
+  - statsmodels
+
+  # Python: storage, formats & compression codecs
+  - h5py             # HDF5 file I/O; hierarchical data storage used in anndata/h5ad
+  - zarr             # chunked, compressed N-dimensional array storage (alternative to HDF5)
+  - pyarrow>=16      # Arrow/Feather/Parquet support for fast cross-language data exchange
+  - lz4              # lightweight, fast compression codec for numpy/pandas arrays
+  - zstandard        # modern high-ratio compression (Zstd) for large datasets
+  - openpyxl         # read/write Excel files via pandas I/O engine
+  - pyyaml>=6.0.1,<7 # YAML configuration file parsing and serialization
+
+  # Python: ML (general purpose)
+  - scikit-learn    # general-purpose machine learning library
+  - scikit-image    # image processing and computer vision
+  - scikit-misc     # miscellaneous scientific computing utilities
+  - xgboost         # gradient-boosted trees for classification and regression
+  - lightgbm        # fast, distributed gradient-boosted trees
+  - tensorflow-cpu  # CPU-only TensorFlow for deep learning
+  - pytorch-cpu     # CPU-only PyTorch for deep learning
+  - optuna          # hyperparameter optimization framework
+  - opencv          # computer vision and image processing
+  - shap            # SHAP values for model interpretability
+
+  # NOTE:
+  # TensorFlow may automatically install `tensorflow_estimator` as a dependency.
+  # In some environments, `tensorflow_estimator` fails to import due to broken or
+  # incompatible dependencies (e.g. protobuf version mismatch).
+  # Since `tensorflow_estimator` is largely deprecated and not used in modern
+  # TensorFlow workflows (tf.keras is the standard), we intentionally ignore this
+  # import error instead of downgrading TensorFlow or related libraries to fix it.
+
+  # Python: plotting libraries
+  - matplotlib
+  - seaborn
+  - upsetplot
+  - matplotlib-venn
+  - pillow
+  - networkx
+  - python-graphviz
+  - dna_features_viewer   # plasmid/gene map visualization
+  - pycirclize            # circos-like circular genome plots
+  - pygenometracks        # genome browser-like multi-track visualization
+  - plotly                # interactive plotting library
+  - python-kaleido        # static image export for Plotly
+  - pydot                 # graph visualization and plottingki
+
+  # Python: utils (general-purpose)
+  - rich             # pretty console output
+  - tqdm             # progress bars
+  - fsspec           # unified filesystem API
+  - psutil           # process/memory info
+  - joblib           # parallelism + caching
+  - colorama         # colored terminal output
+
+  # Python: misc
+  - python-Levenshtein  # fast string edit distance calculations
+
+  # Python: Profiling / Diagnostics
+  - pympler         # memory profiling and analysis
+  - line_profiler  # line-by-line code profiling
+  - memory_profiler  # memory usage tracking for Python code
+
+  # Python: Notebook / Jupyter runtime
+  - notebook==6.5.7
+  - jupyter_contrib_nbextensions
+  - jupyter_nbextensions_configurator
+  - tornado=6.4.*   # compatible with classic notebook
+  - tinycss2<1.5    # keep tinycss2 compatible with bleach (required by nbextensions)
+  - ipykernel
+  - ipynbname
+
+  # jsonschema >=4.25 pulls in rfc3987-syntax, which triggers Lark/Earley
+  # parser construction during import and can crash Python. Pin below 4.25
+  # to avoid bringing in rfc3987-syntax while keeping Jupyter functional.
+  - jsonschema<4.25
+  - jsonschema-with-format-nongpl<4.25
+
+  # Python: bioinformatics libraries
+  - biopython       # sequence IO, alignment parsing, simple BLAST/XML/FASTA utilities
+  - pysam           # BAM/CRAM/VCF handling via htslib
+  - pyfaidx         # FASTA indexing and random access
+  - gffutils        # parse/query GFF/GTF annotations via SQLite backend
+  - pyranges        # fast genomic interval operations in pandas-like style
+  - pybedtools      # classic BEDTools interface for interval arithmetic
+  - pybigwig        # access and summarize bigWig/bigBed files
+  - screed          # fast FASTA/FASTQ reader (optional, Biopython covers basics)
+  - bioservices     # access biological web services (KEGG, UniProt, etc.)
+
+  # Python: multivariate analysis, PCA, and single-cell-style containers
+  - scanpy
+  - anndata
+  - igraph
+  # - louvain
+  - leidenalg
+
+  # Python: time-series pattern analysis, anomaly detection, and change-point detection
+  - tslearn    # time-series clustering, classification, and DTW-based similarity analysis
+  - ruptures   # library for detecting change points in temporal sequences
+  - pygam      # generalized additive models for flexible nonlinear regression and classification
+
+  # Python: pathway and gene set enrichment analysis (GO/KEGG/GSEA-style)
+  - gseapy
+  - goatools
+
+  # ---------------------------------------------------------------------------
+  # Additional packages via pip
+  # ---------------------------------------------------------------------------
+
+  - pip:
+      - pip-licenses        # generate license reports for Python dependencies via pip
+      - git+https://github.com/mparker2/g4predict.git  # G-quadruplex prediction tool for DNA/RNA sequences
