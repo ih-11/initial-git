@@ -1,7 +1,7 @@
 # initial-git
 
-https://github.com/ih-11 '\n'
-https://github.com/ha-ibnu
+-https://github.com/ih-11
+-https://github.com/ha-ibnu
 
 ----
 # Dotfiles
@@ -33,3 +33,5 @@ bash install_private_libs.sh
 
 * Private libraries are NOT included in this repo
 * Update LIB_ROOT path if needed
+
+### to be continued (adding ref)
