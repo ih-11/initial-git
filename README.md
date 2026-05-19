@@ -84,6 +84,35 @@ Craig RJ, Gallaher SD, Shu S, et al. (2022).
 *The Chlamydomonas Genome Project, version 6: reference assemblies for mating type plus and minus strains reveal extensive structural mutation in the laboratory.*  
 https://doi.org/10.1101/2022.06.16.496473
 
+## Miniature Reference Genomes
+
+Small "1% genomes" are provided for lightweight testing, rapid debugging, teaching, and benchmark development.
+
+These datasets contain approximately the first 1% of each chromosome/contig together with matching annotation features.
+
+Current miniature references:
+
+| File | Description |
+|---|---|
+| `cref1pct.fa.gz` | 1% Chlamydomonas reinhardtii reference genome |
+| `cref1pct.gff3.gz` | matching 1% gene annotation |
+
+Miniature references are useful for:
+
+- rapid alignment testing
+- splice-aware alignment debugging
+- lightweight benchmarking
+- pipeline prototyping
+- teaching and visualization
+- CI/testing workflows
+
+The miniature datasets are generated reproducibly using scripts in `lib/`:
+
+| Script | Purpose |
+|---|---|
+| `mk1pct.py` | generate miniature FASTA references |
+| `gffcut.py` | generate matching annotation subsets |
+
 ---
 
 # Notes
