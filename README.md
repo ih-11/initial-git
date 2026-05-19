@@ -59,14 +59,30 @@ bash env/install_private_libs.sh
 
 The `data/` directory stores lightweight reusable reference datasets for development, testing, and bioinformatics workflows.
 
-Current references:
+## Chlamydomonas reinhardtii Reference
+
+Current reference files:
 
 | File | Description |
 |---|---|
-| `cref.fa.gz` | Chlamydomonas reinhardtii reference genome |
-| `cref.gff3.gz` | Chlamydomonas reinhardtii gene annotation |
+| `cref.fa.gz` | Chlamydomonas reinhardtii CC-4532 genome assembly v6.0 |
+| `cref.gff3.gz` | Chlamydomonas reinhardtii CC-4532 gene annotation v6.1 |
 
-Compressed references are preferred to reduce repository size.
+Reference source:
+- Joint Genome Institute (JGI) / Phytozome
+- Organism: *Chlamydomonas reinhardtii* CC-4532
+- Assembly version: v6.0
+- Annotation version: v6.1
+
+Compressed FASTA and GFF3 files are stored to reduce repository size and simplify distribution.
+
+The numeric identifier `707` in the original JGI filenames is an internal Phytozome release identifier and is omitted here for simplicity. :contentReference[oaicite:0]{index=0}
+
+Please cite:
+
+Craig RJ, Gallaher SD, Shu S, et al. (2022).  
+*The Chlamydomonas Genome Project, version 6: reference assemblies for mating type plus and minus strains reveal extensive structural mutation in the laboratory.*  
+https://doi.org/10.1101/2022.06.16.496473
 
 ---
 
