@@ -1,0 +1,179 @@
+name: ih-11
+
+# =========================================================
+# ih-11
+# General-purpose research and bioinformatics environment
+#
+# Designed for:
+# - General scientific computing
+# - Classical machine learning
+# - Sequence analysis
+# - Bioinformatics utilities
+# - Visualization and exploratory analysis
+# - Jupyter-based workflows
+#
+# Optimized for:
+# - Mid-range laptops
+# - CPU-based workflows
+# - Moderate RAM usage (~15 GB systems)
+# - No dedicated NVIDIA GPU required
+#
+# Excludes intentionally:
+# - Deep learning frameworks (TensorFlow/PyTorch)
+# - Heavy single-cell analysis stacks
+# - Large-scale NGS alignment processing
+# - GPU/CUDA dependencies
+#
+# Suitable for:
+# - Daily research work
+# - Data science projects
+# - Sequence and motif analysis
+# - Enrichment/pathway analysis
+# - Statistical modeling
+# - Interactive notebooks
+# =========================================================
+
+channels:
+  - conda-forge
+  - bioconda
+  - nodefaults
+
+dependencies:
+
+  # =======================================================
+  # Core Python Environment
+  # =======================================================
+  - python=3.11            # main Python runtime
+  - pip                    # pip package manager
+  - setuptools             # package build utilities
+  - wheel                  # wheel package support
+
+  # =======================================================
+  # Core System Utilities
+  # =======================================================
+  - sqlite                 # lightweight database engine
+  - graphviz               # graph rendering backend
+  - git                    # version control system
+
+  # =======================================================
+  # General Bioinformatics CLI Tools
+  # Lightweight sequence-processing utilities
+  # =======================================================
+  - seqkit                 # FASTA/FASTQ toolkit
+  - seqtk                  # lightweight sequence manipulation
+  - mafft                  # multiple sequence alignment
+  - viennarna              # RNA secondary structure analysis
+  - openblas               # optimized BLAS backend
+
+  # =======================================================
+  # Scientific Computing Stack
+  # =======================================================
+  - numpy                  # numerical arrays
+  - scipy                  # scientific computing functions
+  - pandas                 # dataframe/data analysis
+  - statsmodels            # statistical modeling
+
+  # =======================================================
+  # Storage, Formats, Compression
+  # =======================================================
+  - h5py                   # HDF5 support
+  - zarr                   # chunked array storage
+  - pyarrow>=16            # parquet/Arrow backend
+  - lz4                    # fast compression
+  - zstandard              # modern compression format
+  - openpyxl               # Excel file support
+  - pyyaml>=6.0.1,<7       # YAML parsing
+
+  # =======================================================
+  # Classical Machine Learning
+  # CPU-friendly ML libraries
+  # =======================================================
+  - scikit-learn           # core ML algorithms
+  - scikit-image           # image analysis utilities
+  - scikit-misc            # misc scientific utilities
+  - xgboost                # gradient boosting framework
+  - lightgbm               # efficient boosting framework
+  - optuna                 # hyperparameter optimization
+  - shap                   # model explainability
+
+  # =======================================================
+  # Plotting and Visualization
+  # =======================================================
+  - matplotlib             # base plotting library
+  - seaborn                # statistical visualization
+  - upsetplot              # UpSet plots
+  - matplotlib-venn        # Venn diagrams
+  - pillow                 # image handling
+  - networkx               # graph/network analysis
+  - python-graphviz        # Graphviz Python interface
+  - dna_features_viewer    # biological feature visualization
+  - pycirclize             # circular genomic plots
+  - plotly                 # interactive visualization
+  - python-kaleido         # plot export backend
+  - pydot                  # graph rendering support
+
+  # =======================================================
+  # General Utilities
+  # =======================================================
+  - rich                   # rich terminal formatting
+  - tqdm                   # progress bars
+  - fsspec                 # filesystem abstraction
+  - psutil                 # system monitoring
+  - joblib                 # lightweight parallelization
+  - colorama               # terminal colors
+  - python-Levenshtein     # string distance calculations
+
+  # =======================================================
+  # Profiling / Diagnostics
+  # =======================================================
+  - pympler                # memory inspection tools
+  - line_profiler          # line-by-line profiling
+  - memory_profiler        # RAM profiling
+
+  # =======================================================
+  # Jupyter / Notebook Environment
+  # =======================================================
+  - notebook=6.5.7         # classic Jupyter Notebook
+  - jupyter_contrib_nbextensions
+                                # notebook extensions collection
+  - jupyter_nbextensions_configurator
+                                # GUI extension manager
+  - tornado=6.4.*          # notebook-compatible Tornado version
+  - "tinycss2<1.5"         # compatibility for nbextensions
+  - ipykernel              # Jupyter kernel support
+  - ipynbname              # retrieve notebook name/path
+  - "jsonschema<4.25"      # notebook compatibility constraint
+  - "jsonschema-with-format-nongpl<4.25"
+
+  # =======================================================
+  # General Bioinformatics Python Libraries
+  # =======================================================
+  - biopython              # biological sequence utilities
+  - pyfaidx                # indexed FASTA access
+  - gffutils               # GFF/GTF annotation handling
+  - pyranges               # genomic interval operations
+  - screed                 # sequence file parsing
+  - bioservices            # biological database APIs
+
+  # =======================================================
+  # Time-Series / Nonlinear Analysis
+  # =======================================================
+  - tslearn                # time-series ML
+  - ruptures               # change-point detection
+  - pygam                  # generalized additive models
+
+  # =======================================================
+  # Enrichment / Functional Analysis
+  # =======================================================
+  - gseapy                 # gene set enrichment analysis
+  - goatools               # Gene Ontology analysis
+
+  # =======================================================
+  # pip-only Packages
+  # =======================================================
+  - pip:
+      - pip-licenses
+            # license inspection utility
+
+      - git+https://github.com/mparker2/g4predict.git
+            # G4 sequence prediction package
