@@ -150,3 +150,5 @@ dependencies:
   - pip:
       - pip-licenses        # generate license reports for Python dependencies via pip
       - git+https://github.com/mparker2/g4predict.git  # G-quadruplex prediction tool for DNA/RNA sequences
+      - -e /mnt/d/Ibnu/Programming/from_Yamasaki/Containers/PythonGeneralPurpose/2025-12-17.CPU/sy-lib-2024-04-29-ae18bb2-without-git
+      
