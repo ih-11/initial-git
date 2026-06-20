@@ -1,0 +1,51 @@
+name: r-viz
+
+channels:
+  - conda-forge
+  - bioconda
+  - nodefaults
+
+dependencies:
+  # R base
+  - r-base=4.3
+
+  # Jupyter R kernel
+  - r-irkernel
+
+  # Core data analysis
+  - r-tidyverse
+  - r-data.table
+  - r-readr
+  - r-dplyr
+  - r-tidyr
+  - r-stringr
+  - r-tibble
+
+  # Statistics
+  - r-rstatix
+  - r-broom
+  - r-car
+  - r-coin
+  - r-effsize
+
+  # Plotting
+  - r-ggplot2
+  - r-ggpubr
+  - r-cowplot
+  - r-patchwork
+  - r-ggrepel
+  - r-scales
+  - r-viridis
+  - r-rcolorbrewer
+
+  # UpSet plots
+  - r-complexupset
+
+  # Tables / export
+  - r-writexl
+  - r-openxlsx
+
+  # Utilities
+  - r-here
+  - r-glue
+  - r-jsonlite
