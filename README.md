@@ -86,6 +86,41 @@ Craig RJ, Gallaher SD, Shu S, et al. (2022).
 
 https://doi.org/10.1101/2022.06.16.496473
 
+## Arabidopsis thaliana Reference
+
+Current reference files:
+
+| File | Description |
+|---|---|
+| `at.fa.gz` | Arabidopsis thaliana TAIR10 genome assembly (Araport11 naming) |
+| `at.gff3.gz` | Arabidopsis thaliana Araport11 gene annotation |
+
+Reference source:
+
+- The Arabidopsis Information Resource (TAIR)
+- Araport11 annotation
+- Genome assembly: TAIR10 (GCA_000001735.1)
+- Annotation release: Araport11 (201606)
+
+Repository version notes:
+
+- Chromosome identifiers use the `Chr1`–`Chr5`, `ChrM`, and `ChrC` naming convention.
+- The reference was derived from an internally standardized reference genome used for RNA-seq analysis.
+- The external Renilla luciferase (Rluc) spike-in sequence (`std_r_luc_expr_cassette`) was removed to produce a clean reference genome for general-purpose analyses.
+- Corresponding spike-in annotations were also removed from the GFF3 file.
+
+Compressed FASTA and GFF3 files are stored to reduce repository size and simplify distribution.
+
+Please cite:
+
+Cheng CY, Krishnakumar V, Chan AP, et al. (2017).
+
+*Araport11: a complete reannotation of the Arabidopsis thaliana reference genome.*
+
+The Plant Journal, 89(4), 789–804.
+
+https://doi.org/10.1111/tpj.13415
+
 ---
 
 # Miniature Reference Genomes
