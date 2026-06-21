@@ -58,91 +58,25 @@ bash env/install_private_libs.sh
 
 # Reference Data
 
-The `data/` directory stores lightweight reusable reference datasets for development, testing, benchmarking, and bioinformatics workflows.
+The `data/` directory stores reusable reference genomes, annotations, and lightweight benchmark references used across bioinformatics projects.
 
-## Chlamydomonas reinhardtii Reference
+Currently available references include:
 
-Current reference files:
+- *Arabidopsis thaliana*
+- *Chlamydomonas reinhardtii*
 
-| File | Description |
-|---|---|
-| `cref.fa.gz` | Chlamydomonas reinhardtii CC-4532 genome assembly v6.0 |
-| `cref.gff3.gz` | Chlamydomonas reinhardtii CC-4532 gene annotation v6.1 |
+Each reference may include:
 
-Reference source:
+- full reference genome (FASTA)
+- gene annotation (GFF3)
+- miniature benchmark reference genomes
+- matching benchmark annotations
 
-- Joint Genome Institute (JGI) / Phytozome
-- Organism: *Chlamydomonas reinhardtii* CC-4532
-- Assembly version: v6.0
-- Annotation version: v6.1
+Detailed descriptions, data sources, preprocessing history, and citations are documented in:
 
-Compressed FASTA and GFF3 files are stored to reduce repository size and simplify distribution.
-
-Please cite:
-
-Craig RJ, Gallaher SD, Shu S, et al. (2022).
-
-*The Chlamydomonas Genome Project, version 6: reference assemblies for mating type plus and minus strains reveal extensive structural mutation in the laboratory.*
-
-https://doi.org/10.1101/2022.06.16.496473
-
-## Arabidopsis thaliana Reference
-
-Current reference files:
-
-| File | Description |
-|---|---|
-| `at.fa.gz` | Arabidopsis thaliana TAIR10 genome assembly (Araport11 naming) |
-| `at.gff3.gz` | Arabidopsis thaliana Araport11 gene annotation |
-
-Reference source:
-
-- The Arabidopsis Information Resource (TAIR)
-- Araport11 annotation
-- Genome assembly: TAIR10 (GCA_000001735.1)
-- Annotation release: Araport11 (201606)
-
-Repository version notes:
-
-- Chromosome identifiers use the `Chr1`–`Chr5`, `ChrM`, and `ChrC` naming convention.
-- The reference was derived from an internally standardized reference genome used for RNA-seq analysis.
-- The external Renilla luciferase (Rluc) spike-in sequence (`std_r_luc_expr_cassette`) was removed to produce a clean reference genome for general-purpose analyses.
-- Corresponding spike-in annotations were also removed from the GFF3 file.
-
-Compressed FASTA and GFF3 files are stored to reduce repository size and simplify distribution.
-
-Please cite:
-
-Cheng CY, Krishnakumar V, Chan AP, et al. (2017).
-
-*Araport11: a complete reannotation of the Arabidopsis thaliana reference genome.*
-
-The Plant Journal, 89(4), 789–804.
-
-https://doi.org/10.1111/tpj.13415
-
----
-
-# Miniature Reference Genomes
-
-Small reference genomes are provided for rapid testing, lightweight benchmarking, pipeline development, and teaching.
-
-Current miniature reference:
-
-| File | Description |
-|---|---|
-| `cref1pct.fa.gz` | 1% Chlamydomonas reference genome |
-| `cref1pct.gff3.gz` | Matching annotation |
-
-These datasets are intended for:
-
-- rapid alignment testing
-- pipeline prototyping
-- benchmark development
-- teaching
-- visualization
-- CI/testing workflows
-
+```text
+data/README.md
+```
 ---
 
 # Utility Scripts
