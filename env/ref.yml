@@ -1,0 +1,13 @@
+name: build_ref
+
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+
+dependencies:
+  - gffread
+  - samtools
+  - seqkit
+  - bedtools
+  - gffutils
