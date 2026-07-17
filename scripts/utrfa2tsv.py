@@ -38,13 +38,17 @@ with zipfile.ZipFile(args.input_zip) as archive:
     fasta_files = [
         name
         for name in archive.namelist()
-        if not name.endswith("/")
+        if (
+            not name.endswith("/")
+            and not name.startswith("__MACOSX/")
+            and name.lower().endswith((".fa", ".fsa", ".fasta"))
+        )
     ]
 
     if len(fasta_files) != 1:
         raise ValueError(
-            f"Expected one file in {args.input_zip}, "
-            f"found {len(fasta_files)}"
+            f"Expected one FASTA file in {args.input_zip}, "
+            f"found {fasta_files}"
         )
 
     fasta_name = fasta_files[0]
