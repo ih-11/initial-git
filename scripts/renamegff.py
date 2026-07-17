@@ -2,189 +2,61 @@
 
 import argparse
 import gzip
-import sys
 from pathlib import Path
-from typing import TextIO
 
 
 CHR_MAP = {
-    "NC_001133.9": "chrI",
-    "NC_001134.8": "chrII",
-    "NC_001135.5": "chrIII",
-    "NC_001136.10": "chrIV",
-    "NC_001137.3": "chrV",
-    "NC_001138.5": "chrVI",
-    "NC_001139.9": "chrVII",
-    "NC_001140.6": "chrVIII",
-    "NC_001141.2": "chrIX",
-    "NC_001142.9": "chrX",
-    "NC_001143.9": "chrXI",
-    "NC_001144.5": "chrXII",
-    "NC_001145.3": "chrXIII",
-    "NC_001146.8": "chrXIV",
-    "NC_001147.6": "chrXV",
-    "NC_001148.4": "chrXVI",
-    "NC_001224.1": "chrM",
+    "NC_001133": "chrI",
+    "NC_001134": "chrII",
+    "NC_001135": "chrIII",
+    "NC_001136": "chrIV",
+    "NC_001137": "chrV",
+    "NC_001138": "chrVI",
+    "NC_001139": "chrVII",
+    "NC_001140": "chrVIII",
+    "NC_001141": "chrIX",
+    "NC_001142": "chrX",
+    "NC_001143": "chrXI",
+    "NC_001144": "chrXII",
+    "NC_001145": "chrXIII",
+    "NC_001146": "chrXIV",
+    "NC_001147": "chrXV",
+    "NC_001148": "chrXVI",
+    "NC_001224": "chrM",
 }
 
 
-def open_text(path: Path, mode: str) -> TextIO:
-    """Open a plain-text or gzip-compressed file."""
-
-    if path.suffix == ".gz":
-        return gzip.open(path, mode, encoding="utf-8")
-
-    return path.open(mode, encoding="utf-8")
+def open_text(path, mode):
+    if str(path).endswith(".gz"):
+        return gzip.open(path, mode + "t")
+    return open(path, mode)
 
 
-def rename_gff(input_path: Path, output_path: Path) -> None:
-    """
-    Rename chromosome identifiers in GFF3 column 1.
-
-    The embedded FASTA section is preserved. FASTA headers appearing after
-    ##FASTA are also renamed so the entire GFF3 remains internally consistent.
-    """
-
-    observed_chromosomes = set()
-    feature_count = 0
-    renamed_feature_count = 0
-    fasta_sequence_count = 0
-    in_fasta = False
-
-    with open_text(input_path, "rt") as infile, open_text(
-        output_path,
-        "wt",
-    ) as outfile:
-        for line_number, line in enumerate(infile, start=1):
-            if line.startswith("##FASTA"):
-                in_fasta = True
-                outfile.write(line)
-                continue
-
-            if in_fasta:
-                if not line.startswith(">"):
-                    outfile.write(line)
-                    continue
-
-                fasta_sequence_count += 1
-
-                header = line[1:].rstrip("\n")
-                parts = header.split(maxsplit=1)
-                old_name = parts[0]
-
-                if old_name not in CHR_MAP:
-                    raise ValueError(
-                        f"Unknown embedded FASTA identifier at "
-                        f"line {line_number}: {old_name}"
-                    )
-
-                new_name = CHR_MAP[old_name]
-
-                if len(parts) == 2:
-                    outfile.write(f">{new_name} {parts[1]}\n")
-                else:
-                    outfile.write(f">{new_name}\n")
-
-                continue
-
-            if line.startswith("#") or not line.strip():
-                outfile.write(line)
-                continue
-
-            fields = line.rstrip("\n").split("\t")
-
-            if len(fields) != 9:
-                raise ValueError(
-                    f"Expected 9 GFF3 columns at line {line_number}, "
-                    f"found {len(fields)}"
-                )
-
-            feature_count += 1
-            old_name = fields[0]
-
-            if old_name not in CHR_MAP:
-                raise ValueError(
-                    f"Unknown chromosome identifier at line "
-                    f"{line_number}: {old_name}"
-                )
-
-            fields[0] = CHR_MAP[old_name]
-            observed_chromosomes.add(fields[0])
-            renamed_feature_count += 1
-
-            outfile.write("\t".join(fields) + "\n")
-
-    expected = set(CHR_MAP.values())
-    missing = sorted(expected - observed_chromosomes)
-
-    if missing:
-        raise ValueError(
-            "The following expected chromosomes had no GFF3 features: "
-            + ", ".join(missing)
-        )
-
-    print(
-        f"Input feature records: {feature_count}",
-        file=sys.stderr,
-    )
-    print(
-        f"Renamed feature records: {renamed_feature_count}",
-        file=sys.stderr,
-    )
-    print(
-        f"Embedded FASTA sequences renamed: "
-        f"{fasta_sequence_count}",
-        file=sys.stderr,
-    )
-    print(
-        f"Output: {output_path}",
-        file=sys.stderr,
-    )
+parser = argparse.ArgumentParser(
+    description="Rename SGD FASTA chromosome identifiers."
+)
+parser.add_argument("input")
+parser.add_argument("output")
+args = parser.parse_args()
 
 
-def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(
-        description=(
-            "Rename SGD RefSeq chromosome identifiers in a GFF3 file."
-        )
-    )
+with open_text(args.input, "r") as fin, open_text(args.output, "w") as fout:
 
-    parser.add_argument(
-        "input_gff",
-        type=Path,
-        help="Input GFF3 file, optionally gzip-compressed.",
-    )
+    for line in fin:
 
-    parser.add_argument(
-        "output_gff",
-        type=Path,
-        help="Output GFF3 file, optionally ending in .gz.",
-    )
+        if not line.startswith(">"):
+            fout.write(line)
+            continue
 
-    return parser.parse_args()
+        header = line[1:].rstrip()
 
+        # Example:
+        # ref|NC_001133|
+        accession = header.split("|")[1]
 
-def main() -> None:
-    args = parse_args()
+        if accession not in CHR_MAP:
+            raise ValueError(
+                f"Unknown chromosome accession: {accession}"
+            )
 
-    if not args.input_gff.is_file():
-        sys.exit(
-            f"Error: input file not found: {args.input_gff}"
-        )
-
-    args.output_gff.parent.mkdir(
-        parents=True,
-        exist_ok=True,
-    )
-
-    try:
-        rename_gff(
-            args.input_gff,
-            args.output_gff,
-        )
-    except (OSError, ValueError) as error:
-        sys.exit(f"Error: {error}")
-
-
-if __name__ == "__main__":
-    main()
+        fout.write(f">{CHR_MAP[accession]}\n")
